@@ -1,0 +1,124 @@
+{
+  "version": 1,
+  "projects": {
+    "workflow-app": {
+      "root": "apps/workflow-app",
+      "sourceRoot": "apps/workflow-app/src",
+      "projectType": "application",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/web:build",
+          "options": {
+            "outputPath": "dist/apps/workflow-app",
+            "index": "apps/workflow-app/src/index.html",
+            "main": "apps/workflow-app/src/main.tsx",
+            "polyfills": "apps/workflow-app/src/polyfills.ts",
+            "tsConfig": "apps/workflow-app/tsconfig.app.json",
+            "assets": [
+              "apps/workflow-app/src/favicon.ico",
+              "apps/workflow-app/src/assets"
+            ],
+            "styles": ["apps/workflow-app/src/styles.scss"],
+            "scripts": [],
+            "webpackConfig": "@nrwl/react/plugins/webpack"
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/workflow-app/src/environments/environment.ts",
+                  "with": "apps/workflow-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/web:dev-server",
+          "options": {
+            "buildTarget": "workflow-app:build"
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "workflow-app:build:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/workflow-app/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/workflow-app/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "workflow-app-e2e": {
+      "root": "apps/workflow-app-e2e",
+      "sourceRoot": "apps/workflow-app-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/workflow-app-e2e/cypress.json",
+            "tsConfig": "apps/workflow-app-e2e/tsconfig.e2e.json",
+            "devServerTarget": "workflow-app:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "workflow-app:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/workflow-app-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/react"
+  },
+  "schematics": {
+    "@nrwl/react": {
+      "application": {
+        "style": "scss",
+        "linter": "eslint",
+        "babel": true
+      },
+      "component": {
+        "style": "scss"
+      },
+      "library": {
+        "style": "scss",
+        "linter": "eslint"
+      }
+    }
+  },
+  "defaultProject": "workflow-app"
+}

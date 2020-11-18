@@ -1,0 +1,44 @@
+{
+  "npmScope": "g4i",
+  "affected": {
+    "defaultBase": "master"
+  },
+  "implicitDependencies": {
+    "workspace.json": "*",
+    "package.json": {
+      "dependencies": "*",
+      "devDependencies": "*"
+    },
+    "tsconfig.base.json": "*",
+    "tslint.json": "*",
+    ".eslintrc.json": "*",
+    "nx.json": "*"
+  },
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "@nrwl/nx-cloud",
+      "options": {
+        "accessToken": "ZjgxMGIzOWUtNzk0Ny00YWRmLWJjOTctMTliNWVlMjIzOTlkfHJlYWQtd3JpdGU=",
+        "cacheableOperations": [
+          "build",
+          "test",
+          "lint",
+          "e2e"
+        ],
+        "canTrackAnalytics": false,
+        "showUsageWarnings": true
+      }
+    }
+  },
+  "projects": {
+    "workflow-app": {
+      "tags": []
+    },
+    "workflow-app-e2e": {
+      "tags": [],
+      "implicitDependencies": [
+        "workflow-app"
+      ]
+    }
+  }
+}
